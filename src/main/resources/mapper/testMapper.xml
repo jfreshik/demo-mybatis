@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demomybatis.repository.TestRepository">
+
+    <!-- TestRespository 에서 사용하는 테이블 정의 -->
+    <sql id="mapperTb">
+        test
+    </sql>
+
+    <select id="getTest" parameterType="long" resultType="String">
+        SELECT name FROM <include refid="mapperTb" />
+        WHERE id=#{id}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        <include refid="common.commonCount" /> <include refid="mapperTb" />
+    </select>
+
+    <!-- include 한 sql 에서 'mapperTb' 참조가 가능하다 -->
+    <select id="getTest2" resultType="int">
+        <include refid="common.containCallerRef" />
+    </select>
+
+    <!-- include 한 sql 에서 'mapperTb' 참조가 가능하다 -->
+    <insert id="insertName" parameterType="String">
+        <include refid="common.commonInsert" />
+    </insert>
+</mapper>
